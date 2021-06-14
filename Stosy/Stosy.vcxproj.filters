@@ -18,12 +18,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stacki.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stacki.h">
+    <ClInclude Include="stacki.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

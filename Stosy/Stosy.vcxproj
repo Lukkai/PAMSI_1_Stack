@@ -145,10 +145,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="stacki.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stacki.h" />
+    <ClInclude Include="stacki.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
