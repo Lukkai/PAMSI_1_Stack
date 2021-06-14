@@ -2,7 +2,7 @@
 #include <fstream>
 #include <ctime>
 #include <cmath>
-#include "stacki.hpp"
+#include "Tstack.hpp"
 
 using namespace std;
 

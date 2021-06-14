@@ -1,6 +1,6 @@
 //#pragma once
-#ifndef STACKI_H
-#define STACKI_H
+#ifndef TSTACK_H
+#define TSTACK_H
 
 #include<iostream>
 
