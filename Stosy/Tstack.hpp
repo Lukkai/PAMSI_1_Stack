@@ -22,17 +22,14 @@ public:
     StackTab(const StackTab& otherStackTab);
 
     bool isEmpty() const;                       //boolean method checking if tab is empty
-    void curElems();                    //method writing out all current elements on stack
+    void print();                               //method writing out all current elements on stack
     unsigned int curSize();                     //method returning current number of elements on stack
     unsigned int maxSize();                     //method returning current maximal size of stack tab
     void expand();                              //method expanding 
-
-    void push(T data);
-    T pop();
-    T top();
-
-    void clear();
-    void print();
+    void push(T data);                          //adds element on list
+    T pop();                                    //returns element from tab, deletes from tab 
+    T top();                                    //returns latest element on tab
+    void clear();                               //pops whole stack, leaves it empty
 
     friend void operator++ (StackTab& myStackTab);
     friend void operator-- (StackTab& myStackTab);
@@ -83,15 +80,15 @@ bool StackTab<T>::isEmpty() const
 }
 
 template <typename T>
-void StackTab<T>::curElems()
+void StackTab<T>::print()
 {
-    for (int i = this->top_ptr; i > 0; i--)
-    {
-        cout << this->S[i-1] << endl;
-    }
     if (this->top_ptr == 0)
     {
         cout << "Empty stack" << endl;
+    }
+    for (int i = this->top_ptr; i > 0; i--)
+    {
+        cout << this->S[i-1] << endl;
     }
 }
 template <typename T>
@@ -163,7 +160,7 @@ template <typename T>
 void StackTab<T>::clear()
 {
     if (isEmpty())
-        cout << "Stos jest pusty" << endl;
+        cout << "StackTab is empty" << endl;
     else
     {
         while (!isEmpty())
@@ -171,13 +168,7 @@ void StackTab<T>::clear()
     }
 }
 
-template <typename T>
-void StackTab<T>::print()
-{
-    for (unsigned int i = this->top_ptr; i > 0; i--) {
-        cout << this->S[i-1] << endl;
-    }
-}
+
 
 template <typename T>
 void operator++ (StackTab<T>& myStackTab)
@@ -214,4 +205,4 @@ std::ostream& operator << (std::ostream& out, const StackTab<T>& myStackTab)
 }
 
 
-#endif // !stacki_h
+#endif
