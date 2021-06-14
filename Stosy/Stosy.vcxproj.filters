@@ -20,7 +20,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Tstack.hpp">
+    <ClInclude Include="TStack.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LStack.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

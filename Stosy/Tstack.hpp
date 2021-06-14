@@ -1,6 +1,6 @@
 //#pragma once
-#ifndef TSTACK_H
-#define TSTACK_H
+#ifndef TSTACK_HPP
+#define TSTACK_HPP
 
 #include<iostream>
 
@@ -12,21 +12,22 @@ template <typename T>
 class StackTab
 {
 private:
-    T* S;     //stack
-    unsigned int size;   //table size
-    unsigned int top_ptr;   //top pointer
+    T* S;                                       //stack
+    unsigned int size;                          //table size
+    unsigned int top_ptr;                       //top pointer
 
 public:
-    StackTab(unsigned int size);  //construcor
-    ~StackTab();   //destructor
+    StackTab(unsigned int size);                //construcor
+    ~StackTab();                                //destructor
     StackTab(const StackTab& otherStackTab);
 
-    bool isEmpty();
-    bool isFull();
-    unsigned int curSize();
-    unsigned int maxSize();
+    bool isEmpty() const;                       //boolean method checking if tab is empty
+    void curElems();                    //method writing out all current elements on stack
+    unsigned int curSize();                     //method returning current number of elements on stack
+    unsigned int maxSize();                     //method returning current maximal size of stack tab
+    void expand();                              //method expanding 
 
-    bool push(T data);
+    void push(T data);
     T pop();
     T top();
 
@@ -42,15 +43,15 @@ public:
 
 /*StackTab class methods*/
 template <typename T>
-StackTab<T>::StackTab(unsigned int size)   //construcor
+StackTab<T>::StackTab(unsigned int size)        //construcor
 {
     this->top_ptr = 0;
-    this->size = size;
-    this->S = new T[size];
+    this->size = size + 1;
+    this->S = new T[this->size];
 }
 
 template <typename T>
-StackTab<T>::~StackTab()   //destructor
+StackTab<T>::~StackTab()                        //destructor
 {
     delete[] this->S;
 }
@@ -59,50 +60,79 @@ template <typename T>
 StackTab<T>::StackTab(const StackTab& otherStackTab)
 {
     this->size = otherStackTab.size;
-    this->S = new int[size];
-    for (int i = 0; i <= otherStackTab.top_ptr; i++)
+    this->S = new int[this->size];
+    for (int i = 0; i <= otherStackTab.size - 1; i++)
         this->S[i] = otherStackTab.S[i];
     this->top_ptr = otherStackTab.top_ptr;
 }
 
+//template <typename T>
+//bool StackTab<T>::isFull()
+//{
+//    if (this->top_ptr >= this->size - 1)
+//        return true;
+//    return false;
+//}
+
 template <typename T>
-bool StackTab<T>::isFull()
+bool StackTab<T>::isEmpty() const
 {
-    if (this->top_ptr >= this->size - 1)
+    if (this->top_ptr == 0)
         return true;
     return false;
 }
 
 template <typename T>
-bool StackTab<T>::isEmpty()
+void StackTab<T>::curElems()
 {
-    if (this->top_ptr < 0)
-        return true;
-    return false;
+    for (int i = this->top_ptr; i > 0; i--)
+    {
+        cout << this->S[i-1] << endl;
+    }
+    if (this->top_ptr == 0)
+    {
+        cout << "Empty stack" << endl;
+    }
 }
-
 template <typename T>
 unsigned int StackTab<T>::curSize()
 {
     return this->top_ptr;
 }
+
 template <typename T>
 unsigned int StackTab<T>::maxSize()
 {
-    return this->size;
+    return this->size - 1;
 }
 
 template <typename T>
-bool StackTab<T>::push(T data)
+void StackTab<T>::expand()
 {
-    if (isFull())
+    T* tmp = new T[this->size + 1024];          //new tab is extended by 1024 elements
+    for (int i = 0; i < this->top_ptr; i++)
     {
-        cout << "StackTab overflow!" << endl;
-        return false;
+        tmp[i] = this->S[i];                    //copy the old stack to the new one
     }
-    this->top_ptr++;
-    this->S[this->top_ptr] = data;
-    return true;
+
+    delete[] this->S;                           //del the old stack
+
+    this->S = tmp;                              //copying temp stack to S stack
+    this->size += 1024;                         //how much we expanded our new stack tab maxsize
+    cout << "Tab expanded" << endl;
+}
+
+template <typename T>
+void StackTab<T>::push(T data)
+{
+    if (this->top_ptr == this->size)
+    {
+        /*if StackTab is full, enlarge by 100 objects*/
+        expand();
+        //return false;
+    }
+    this->S[this->top_ptr++] = data;
+    //return true;
 }
 
 template <typename T>
@@ -113,8 +143,8 @@ T StackTab<T>::pop()
         cout << "StackTab underflow!" << endl;
         exit(EXIT_FAILURE);
     }
-    this->top_ptr--;
-    return this->S[this->top_ptr + 1];
+    top_ptr--;
+    return this->S[this->top_ptr];
 }
 
 template <typename T>
@@ -122,24 +152,30 @@ T StackTab<T>::top()
 {
     if (isEmpty())
     {
-        cout << "StackTab underflow!" << endl;
+        cout << "StackTab empty!" << endl;
         exit(EXIT_FAILURE);
     }
-    cout << this->S[this->top_ptr] << endl;
-    return this->S[this->top_ptr];
+    cout << this->S[this->top_ptr-1] << endl;
+    return this->S[this->top_pt-1];
 }
 
 template <typename T>
 void StackTab<T>::clear()
 {
-    this->top_ptr = 0;
+    if (isEmpty())
+        cout << "Stos jest pusty" << endl;
+    else
+    {
+        while (!isEmpty())
+            pop();
+    }
 }
 
 template <typename T>
 void StackTab<T>::print()
 {
     for (unsigned int i = this->top_ptr; i > 0; i--) {
-        cout << this->S[i] << endl;
+        cout << this->S[i-1] << endl;
     }
 }
 
@@ -171,8 +207,9 @@ template <typename T>
 std::ostream& operator << (std::ostream& out, const StackTab<T>& myStackTab)
 {
     std::cout << "StackTab: " << std::endl;
-    for (int i = myStackTab.top_ptr; i >= 0; i--)
-        std::cout << myStackTab.S[i] << "  ";
+    for (unsigned int i = myStackTab.top_ptr; i > 0; i--) {
+        cout << myStackTab.S[i - 1] << " ";
+    }
     return out;
 }
 

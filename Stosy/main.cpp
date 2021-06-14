@@ -2,7 +2,8 @@
 #include <fstream>
 #include <ctime>
 #include <cmath>
-#include "Tstack.hpp"
+#include "TStack.hpp"
+//#include "LStack.hpp"
 
 using namespace std;
 
@@ -15,22 +16,35 @@ int main()
     //std::cout << s1 << std::endl;
     //s1.print();
 
-    for (unsigned int i = 0; i < stos_2.maxSize()-1; i++) {
+    for (unsigned int i = 0; i < stos_2.maxSize(); i++) 
+    {
         stos_2.push((int)pow(i, 2));
     }
-
     stos_2.print();
+
+    printf("*********************\n");
+    stos_2.curElems();
+    printf("*********************\n");
     stos_2.clear();
 
+    printf("*********************\n");
+    for (unsigned int i = 0; i < stos_2.maxSize(); i++)
+    {
+        stos_2.push((int)pow(i, 2));
+    }
     stos_2.print();
 
-    for (unsigned int i = 0; i < stos_2.maxSize() / 2; i++) {
+    printf("*********************\n");
+    for (unsigned int i = 0; i < 10; i++) {
         stos_2.push((int)pow(i, 3));
     }
+
     printf("*********************\n");
-    while (stos_2.curSize() > 0) {
+    //stos_2.print();
+    while (!stos_2.isEmpty()) {
         cout << stos_2.pop() << endl;
     }
+
     cin.get();
 }
 
