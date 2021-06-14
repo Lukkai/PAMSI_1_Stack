@@ -16,7 +16,7 @@ private:
     };
 
     unsigned int num;           // contains number of elements on stack
-    Node* LS;                   // structure to stack elements on list
+    Node* LS;                   // node to elements on list, using it as stacks top element
 
 public:
     StackList();                // constructor
