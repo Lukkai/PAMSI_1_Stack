@@ -9,16 +9,16 @@ using namespace std;
 
 int main()
 {
-	string fileName = "data.txt";
-	bool print = true;
-	unsigned int stackSize = 1000;
+	string fileName = "data100000.txt";
+	bool print = false;
+	unsigned int stackSize = 100000;
 
 	clock_t start, stop, time_1, time_2;
 
 	StackTab<int> stos_1(stackSize);
 	StackList<int> stos_2;
 	
-
+	stos_1.print();
 	start = clock();
 
 	for (unsigned int i = 0; i < stos_1.maxSize(); i++)

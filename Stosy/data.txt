@@ -1,2 +1,2 @@
-Czas tab 1: 1226000 us
-Czas list 2: 865000 us
+Czas tab 1: 78000 us
+Czas list 2: 94000 us

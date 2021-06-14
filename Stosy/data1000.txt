@@ -1,0 +1,2 @@
+Czas tab 1: 1000 us
+Czas list 2: 4000 us

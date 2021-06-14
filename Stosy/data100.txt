@@ -1,0 +1,2 @@
+Czas tab 1: 0 us
+Czas list 2: 0 us
